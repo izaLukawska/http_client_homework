@@ -1,10 +1,13 @@
 package org.lukawska.webclient_demo.configuration;
 
+import org.lukawska.webclient_demo.client.UserHttpClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.ClientRequest;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.support.WebClientAdapter;
+import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import reactor.core.publisher.Mono;
 
 @Configuration
@@ -18,6 +21,15 @@ public class WebClientConfig {
 				.filter(logResponse())
 				.filter(authFilter())
 				.build();
+	}
+
+	@Bean
+	public UserHttpClient userHttpClient(WebClient webClient) {
+		HttpServiceProxyFactory factory = HttpServiceProxyFactory
+				.builderFor(WebClientAdapter.create(webClient))
+				.build();
+
+		return factory.createClient(UserHttpClient.class);
 	}
 
 
