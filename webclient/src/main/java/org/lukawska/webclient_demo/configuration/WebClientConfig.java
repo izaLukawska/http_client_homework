@@ -1,6 +1,8 @@
 package org.lukawska.webclient_demo.configuration;
 
+import lombok.extern.slf4j.Slf4j;
 import org.lukawska.webclient_demo.client.UserHttpClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.ClientRequest;
@@ -11,12 +13,16 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import reactor.core.publisher.Mono;
 
 @Configuration
+@Slf4j
 public class WebClientConfig {
+
+	@Value("${app.base-url}")
+	private String baseUrl;
 
 	@Bean
 	public WebClient webClient(){
 		return WebClient.builder()
-				.baseUrl("http://localhost:8080")
+				.baseUrl(baseUrl)
 				.filter(logRequest())
 				.filter(logResponse())
 				.filter(authFilter())
@@ -35,16 +41,20 @@ public class WebClientConfig {
 
 	private ExchangeFilterFunction logRequest(){
 		return ExchangeFilterFunction.ofRequestProcessor(clientRequest -> {
-			System.out.println("Request: " + clientRequest.method() + " " + clientRequest.url());
+			log.info("Request: {} {} ",clientRequest.method(), clientRequest.url());
+
 			clientRequest.headers().forEach((name, values) ->
-					values.forEach(value -> System.out.println(name + ": " + value)));
+					values.forEach(value -> log.info("{}: {}", name, value))
+			);
+
 			return Mono.just(clientRequest);
 		});
 	}
 
 	private ExchangeFilterFunction logResponse() {
 		return ExchangeFilterFunction.ofResponseProcessor(clientResponse -> {
-			System.out.println("Response Status: " + clientResponse.statusCode());
+			log.info("Response status: {}", clientResponse.statusCode());
+
 			return Mono.just(clientResponse);
 		});
 	}

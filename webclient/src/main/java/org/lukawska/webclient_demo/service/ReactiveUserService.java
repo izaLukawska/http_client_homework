@@ -14,7 +14,7 @@ import java.rmi.ServerException;
 
 @Service
 @RequiredArgsConstructor
-public class ReactiveUserService{
+public class ReactiveUserService {
 
 	private final WebClient webClient;
 
@@ -35,4 +35,3 @@ public class ReactiveUserService{
 				.bodyToMono(UserResponse.class);
 	}
 }
-
