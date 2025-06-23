@@ -1,6 +1,9 @@
 webclient_demo/HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
+mvnw
+mvnw.cmd
+.mvn/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
