@@ -3,6 +3,9 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .idea/
+mvnw
+mvnw.cmd
+.mvn/
 
 ### Eclipse ###
 .apt_generated
