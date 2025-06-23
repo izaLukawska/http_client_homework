@@ -1,5 +1,6 @@
 package org.lukawska.shop_client.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -14,15 +15,14 @@ public class InvoiceApiService {
 
 	private final RestTemplate restTemplate;
 
-	private final String BASE_URL = "http://localhost:8080";
+	@Value("${app.invoice-upload-url}")
+	private String uploadUrl;
 
 	public InvoiceApiService(RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
 	}
 
 	public String uploadFile(MultipartFile file) {
-		String url = BASE_URL + "/invoices/upload";
-
 		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 		body.add("file", file.getResource());
 		body.add("metadata", "file-metadata");
@@ -33,6 +33,6 @@ public class InvoiceApiService {
 		HttpEntity<MultiValueMap<String, Object>> entity =
 				new HttpEntity<>(body, headers);
 
-		return restTemplate.postForObject(url, entity, String.class);
+		return restTemplate.postForObject(uploadUrl, entity, String.class);
 	}
 }

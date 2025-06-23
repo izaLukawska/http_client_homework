@@ -1,6 +1,7 @@
 package org.lukawska.shop_client.service;
 
 import org.lukawska.shop_client.dto.CustomerApiResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,8 @@ public class CustomerApiService {
 
 	private final RestTemplate restTemplate;
 
-	private static final String BASE_URL = "http://localhost:8080";
+	@Value("${app.base-Url}")
+	private String BASE_URL;
 
 	public CustomerApiService(RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;

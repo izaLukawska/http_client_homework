@@ -22,7 +22,11 @@ class ProductApiController {
 	}
 
 	@GetMapping("/headers/{id}")
-	ResponseEntity<ProductApiResponse> getProductWithHeaders(@PathVariable Long id, @RequestHeader(value = "Authorization", required = false) String authHeader) {
+	ResponseEntity<ProductApiResponse> getProductWithHeaders(@PathVariable Long id,
+	                                                         @RequestHeader(
+																	 value = "Authorization",
+			                                                         required = false)
+	                                                         String authHeader) {
 		ProductApiResponse product = service.getProductWithHeaders(id, authHeader);
 		return ResponseEntity.ok(product);
 	}
@@ -34,7 +38,8 @@ class ProductApiController {
 	}
 
 	@PutMapping("/{id}")
-	ResponseEntity<ProductApiResponse> updateProduct(@PathVariable Long id, @RequestBody ProductApiRequest request) {
+	ResponseEntity<ProductApiResponse> updateProduct(@PathVariable Long id,
+	                                                 @RequestBody ProductApiRequest request) {
 		ProductApiResponse product = service.updateProduct(id, request);
 		return ResponseEntity.ok(product);
 	}
