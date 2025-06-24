@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.lukawska</groupId>
-    <artifactId>webclient_demo</artifactId>
+    <artifactId>client_comparison</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>webclient_demo</name>
-    <description>webclient_demo</description>
+    <name>client_comparison</name>
+    <description>client_comparison</description>
     <url/>
     <licenses>
         <license/>
@@ -38,12 +38,12 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
             <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
             <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
@@ -99,4 +99,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
