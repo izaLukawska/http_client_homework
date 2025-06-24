@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.lukawska</groupId>
-    <artifactId>shop_backend</artifactId>
+    <artifactId>webclient_demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>shop_backend</name>
-    <description>shop_backend</description>
+    <name>webclient_demo</name>
+    <description>webclient_demo</description>
     <url/>
     <licenses>
         <license/>
@@ -29,9 +29,8 @@
     <properties>
         <java.version>21</java.version>
         <spring-boot.version>3.5.3</spring-boot.version>
-        <mapstruct.version>1.6.3</mapstruct.version>
-        <postgresql.version>42.6.0</postgresql.version>
         <lombok.version>1.18.38</lombok.version>
+        <reactor.test.version>3.7.7</reactor.test.version>
         <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
         <spring.boot.maven.plugin.version>${spring-boot.version}</spring.boot.maven.plugin.version>
     </properties>
@@ -39,7 +38,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
             <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
@@ -48,34 +47,23 @@
             <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>${mapstruct.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgresql.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <optional>true</optional>
         </dependency>
 
+        <!-- Test dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${spring-boot.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+            <version>${reactor.test.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -94,11 +82,6 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>${lombok.version}</version>
-                        </path>
-                        <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>${mapstruct.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

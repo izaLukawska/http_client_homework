@@ -22,7 +22,8 @@ public class CustomerService {
 	private final CustomerMapper customerMapper;
 
 	public CustomerResponse getCustomer(Long id) {
-		return customerMapper.toResponse(customerRepository.findById(id).orElseThrow(() -> new RestException(ExceptionEnum.CUSTOMER_NOT_FOUND)));
+		return customerMapper.toResponse(customerRepository.findById(id)
+				.orElseThrow(() -> new RestException(ExceptionEnum.CUSTOMER_NOT_FOUND)));
 	}
 
 	public List<CustomerResponse> getAllCustomers() {

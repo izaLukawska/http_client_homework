@@ -1,4 +1,4 @@
-HELP.md
+webclient_demo/HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
 mvnw
@@ -8,7 +8,7 @@ mvnw.cmd
 !**/src/test/**/target/
 
 ### STS ###
-.apt_genwerated
+.apt_generated
 .classpath
 .factorypath
 .project
