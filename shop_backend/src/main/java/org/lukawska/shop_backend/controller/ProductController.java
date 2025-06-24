@@ -15,7 +15,9 @@ public class ProductController {
 	private final ProductService productService;
 
 	@GetMapping("/{id}")
-	public ProductResponse getProduct(@PathVariable Long id, @RequestHeader(value = "Authorization", required = false) String authHeader){
+	public ProductResponse getProduct(@PathVariable Long id, @RequestHeader(
+			value = "Authorization",
+			required = false) String authHeader){
 		System.out.println("Received Authorization: " + authHeader);
 		return productService.getProduct(id);
 	}
@@ -38,3 +40,4 @@ public class ProductController {
 		productService.deleteProduct(id);
 	}
 }
+

@@ -1,11 +1,11 @@
 webclient_demo/HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 mvnw
 mvnw.cmd
 .mvn/
+!**/src/main/**/target/
+!**/src/test/**/target/
 
 ### STS ###
 .apt_generated
