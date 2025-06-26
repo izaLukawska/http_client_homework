@@ -16,14 +16,12 @@ public class UserService {
 	private final UserRepository userRepository;
 
 	public UserResponse getUser(Long id){
-		return userRepository.findById(id).map(this::mapToResponse).orElseThrow(() -> new RestException(ExceptionEnum.USER_NOT_FOUND));
+		return userRepository.findById(id).map(this::mapToResponse)
+				.orElseThrow(() -> new RestException(ExceptionEnum.USER_NOT_FOUND));
 	}
 
 	private UserResponse mapToResponse(User user){
-		return UserResponse.builder()
-				.id(user.getId())
-				.username(user.getUsername())
-				.build();
+		return new UserResponse(user.getId(), user.getUsername());
 	}
 
 	private User mapToUser(UserRequest userRequest){
