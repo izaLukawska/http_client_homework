@@ -3,7 +3,6 @@ package org.lukawska.client_comparison.controller;
 import lombok.RequiredArgsConstructor;
 import org.lukawska.client_comparison.service.ComparisonService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
