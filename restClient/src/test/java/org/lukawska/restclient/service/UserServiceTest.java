@@ -16,7 +16,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -86,7 +85,6 @@ class UserServiceTest {
 		mockServer.verify();
 	}
 
-	@Disabled("throws RestClientException instead of ServerException")
 	@Test
 	void shouldThrowServerError_whenCreateUser(){
 		UserRequest request = new UserRequest("test", "test@test.com");
@@ -149,14 +147,13 @@ class UserServiceTest {
 		assertThrows(ClientError.class, () -> userService.getUserById(id));
 	}
 
-	@Disabled("throws RestClientException instead of ServerException")
 	@Test
 	void shouldThrowServerError_WhenGetById(){
 		//given
 		Long id = 1L;
 		mockServer.expect(ExpectedCount.once(), requestTo(BASE_URL + USERS_PATH + "/" + id))
 				.andExpect(method(HttpMethod.GET))
-				.andRespond(withStatus(HttpStatus.INTERNAL_SERVER_ERROR));
+						.andRespond(withServerError());
 
 		//when & then
 		assertThrows(ServerError.class, () -> userService.getUserById(id));
@@ -195,7 +192,6 @@ class UserServiceTest {
 		mockServer.verify();
 	}
 
-	@Disabled("throws RestClientException instead of ServerException")
 	@Test
 	void shouldThrowServerError_WhenGetAllUsers() {
 		//given
@@ -205,7 +201,7 @@ class UserServiceTest {
 
 
 		//when & then
-		assertThrows(RestClientException.class, () -> userService.getAllUsers());
+		assertThrows(ServerError.class, () -> userService.getAllUsers());
 		mockServer.verify();
 	}
 
@@ -246,7 +242,7 @@ class UserServiceTest {
 		assertThrows(ClientError.class, () -> userService.deleteUserById(id));
 		mockServer.verify();
 	}
-	@Disabled("throws RestClientException instead of ServerException")
+
 	@Test
 	void shouldThrowServerError_WhenDeleteUserById(){
 		//given

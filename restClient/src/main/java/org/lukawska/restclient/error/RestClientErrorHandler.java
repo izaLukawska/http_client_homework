@@ -12,13 +12,13 @@ public class RestClientErrorHandler {
 							throw new ClientError("Client error" + response.getStatusCode());
 						}))
 				.onStatus(HttpStatusCode::is5xxServerError, ((request, response) -> {
-							throw new ServerException("Server error" + response.getStatusCode());
+							throw new ServerError("Server error" + response.getStatusCode());
 						}));
 	}
 
 	public static RestClient.ResponseSpec apply5xxOnlyHandling(RestClient.ResponseSpec spec) {
 		return spec.onStatus(HttpStatusCode::is5xxServerError, ((request, response) -> {
-					throw new ServerException("Server error" + response.getStatusCode());
+					throw new ServerError("Server error" + response.getStatusCode());
 				}));
 	}
 }
