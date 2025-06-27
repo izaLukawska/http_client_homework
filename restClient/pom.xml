@@ -32,6 +32,7 @@
         <lombok.version>1.18.38</lombok.version>
         <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
         <spring.boot.maven.plugin.version>${spring-boot.version}</spring.boot.maven.plugin.version>
+        <wiremock.version>3.13.1</wiremock.version>
     </properties>
     <dependencies>
 
@@ -52,6 +53,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${spring-boot.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wiremock</groupId>
+            <artifactId>wiremock</artifactId>
+            <version>${wiremock.version}</version>
             <scope>test</scope>
         </dependency>
 

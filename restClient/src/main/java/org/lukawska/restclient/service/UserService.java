@@ -5,7 +5,6 @@ import org.lukawska.restclient.dto.UserRequest;
 import org.lukawska.restclient.dto.UserResponse;
 import org.lukawska.restclient.error.RestClientErrorHandler;
 import org.lukawska.restclient.error.UserNotFound;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,13 +19,12 @@ public class UserService {
 
 	private final RestClient restClient;
 
-	@Value("${jsonplaceholder.users-path:/users}")
-	private String usersPath;
+	private static final String USERS_PATH = "/users";
 
 	public UserResponse createUser(UserRequest userRequest) {
 		return RestClientErrorHandler.applyCommonErrorHandling(
 						restClient.post()
-								.uri(usersPath)
+								.uri(USERS_PATH)
 								.contentType(MediaType.APPLICATION_JSON)
 								.body(userRequest)
 								.retrieve())
@@ -36,7 +34,7 @@ public class UserService {
 	public UserResponse getUserById(Long id) {
 		return RestClientErrorHandler.applyCommonErrorHandling(
 						restClient.get()
-								.uri(usersPath + "/{id}", id)
+								.uri(USERS_PATH + "/{id}", id)
 								.retrieve()
 								.onStatus(status -> status == HttpStatus.NOT_FOUND,
 										((request, response) -> {
@@ -46,9 +44,9 @@ public class UserService {
 	}
 
 	public List<UserResponse> getAllUsers() {
-		return RestClientErrorHandler.applyCommonErrorHandling(
+		return RestClientErrorHandler.apply5xxOnlyHandling(
 						restClient.get()
-								.uri(usersPath)
+								.uri(USERS_PATH)
 								.retrieve())
 				.body(new ParameterizedTypeReference<>() {
 				});
@@ -57,7 +55,7 @@ public class UserService {
 	public void deleteUserById(Long id) {
 		RestClientErrorHandler.applyCommonErrorHandling(
 						restClient.delete()
-								.uri(usersPath + "/{id}", id)
+								.uri(USERS_PATH + "/{id}", id)
 								.retrieve()
 								.onStatus(status -> status == HttpStatus.NOT_FOUND,
 										((request, response) -> {

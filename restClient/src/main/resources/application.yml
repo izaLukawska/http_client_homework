@@ -1,3 +1,2 @@
 jsonplaceholder:
   base-url: https://jsonplaceholder.typicode.com
-  users-path: /users
