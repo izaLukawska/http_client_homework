@@ -30,6 +30,7 @@
 		<java.version>21</java.version>
 		<spring-boot.version>3.5.3</spring-boot.version>
 		<lombok.version>1.18.38</lombok.version>
+		<mockwebserver.version>4.12.0</mockwebserver.version>
 		<reactor.version>3.6.5</reactor.version>
 		<spring.boot.maven.plugin.version>${spring-boot.version}</spring.boot.maven.plugin.version>
 	</properties>
@@ -52,6 +53,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<version>${spring-boot.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>mockwebserver</artifactId>
+			<version>${mockwebserver.version}</version>
 			<scope>test</scope>
 		</dependency>
 

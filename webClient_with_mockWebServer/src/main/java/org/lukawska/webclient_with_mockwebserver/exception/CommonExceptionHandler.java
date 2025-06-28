@@ -8,11 +8,13 @@ import reactor.core.publisher.Mono;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CommonExceptionHandler {
 	public static Mono<? extends Throwable> handle4xxClientError(ClientResponse clientResponse) {
-		return clientResponse.bodyToMono(String.class).map(ClientException::new);
+		return clientResponse.bodyToMono(String.class)
+				.flatMap(errorBody -> Mono.error(new ClientException(errorBody)));
 	}
 
 	public static Mono<? extends Throwable> handle5xxServerError(ClientResponse clientResponse) {
-		return clientResponse.bodyToMono(String.class).map(ServerException::new);
+		return clientResponse.bodyToMono(String.class)
+				.flatMap(errorBody -> Mono.error(new ServerException(errorBody)));
 	}
 
 	public static Mono<? extends Throwable> handleNotFound(Long id) {
