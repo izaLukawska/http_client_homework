@@ -17,50 +17,50 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
-	private final RestClient restClient;
+    private final RestClient restClient;
 
-	private static final String USERS_PATH = "/users";
+    private static final String USERS_PATH = "/users";
 
-	public UserResponse createUser(UserRequest userRequest) {
-		return RestClientErrorHandler.applyCommonErrorHandling(
-						restClient.post()
-								.uri(USERS_PATH)
-								.contentType(MediaType.APPLICATION_JSON)
-								.body(userRequest)
-								.retrieve())
-				.body(UserResponse.class);
-	}
+    public UserResponse createUser(UserRequest userRequest) {
+        return RestClientErrorHandler.applyCommonErrorHandling(
+                restClient.post()
+                    .uri(USERS_PATH)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(userRequest)
+                    .retrieve())
+            .body(UserResponse.class);
+    }
 
-	public UserResponse getUserById(Long id) {
-		return RestClientErrorHandler.applyCommonErrorHandling(
-						restClient.get()
-								.uri(USERS_PATH + "/{id}", id)
-								.retrieve()
-								.onStatus(status -> status == HttpStatus.NOT_FOUND,
-										((request, response) -> {
-											throw new UserNotFound(id);
-										})))
-				.body(UserResponse.class);
-	}
+    public UserResponse getUserById(Long id) {
+        return RestClientErrorHandler.applyCommonErrorHandling(
+                restClient.get()
+                    .uri(USERS_PATH + "/{id}", id)
+                    .retrieve()
+                    .onStatus(status -> status == HttpStatus.NOT_FOUND,
+                        ((request, response) -> {
+                            throw new UserNotFound(id);
+                        })))
+            .body(UserResponse.class);
+    }
 
-	public List<UserResponse> getAllUsers() {
-		return RestClientErrorHandler.apply5xxOnlyHandling(
-						restClient.get()
-								.uri(USERS_PATH)
-								.retrieve())
-				.body(new ParameterizedTypeReference<>() {
-				});
-	}
+    public List<UserResponse> getAllUsers() {
+        return RestClientErrorHandler.apply5xxOnlyHandling(
+                restClient.get()
+                    .uri(USERS_PATH)
+                    .retrieve())
+            .body(new ParameterizedTypeReference<>() {
+            });
+    }
 
-	public void deleteUserById(Long id) {
-		RestClientErrorHandler.applyCommonErrorHandling(
-						restClient.delete()
-								.uri(USERS_PATH + "/{id}", id)
-								.retrieve()
-								.onStatus(status -> status == HttpStatus.NOT_FOUND,
-										((request, response) -> {
-											throw new UserNotFound(id);
-										})))
-				.toBodilessEntity();
-	}
+    public void deleteUserById(Long id) {
+        RestClientErrorHandler.applyCommonErrorHandling(
+                restClient.delete()
+                    .uri(USERS_PATH + "/{id}", id)
+                    .retrieve()
+                    .onStatus(status -> status == HttpStatus.NOT_FOUND,
+                        ((request, response) -> {
+                            throw new UserNotFound(id);
+                        })))
+            .toBodilessEntity();
+    }
 }
